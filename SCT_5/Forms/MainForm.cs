@@ -12,6 +12,12 @@ namespace SCT_5.Forms
             _employeesFormFactory = employeesFormFactory;
         }
 
-        private void OnShowEmployeesFormButtonClick(object sender, EventArgs e) => _employeesFormFactory.CreateForm().Show();
+        private void OnShowEmployeesFormButtonClick(object sender, EventArgs e)
+        {
+            EmployeesForm employeesForm = _employeesFormFactory.CreateForm();
+            employeesForm.FormClosed += (_, _) => { Show(); };
+            Hide();
+            employeesForm.Show();
+        }
     }
 }

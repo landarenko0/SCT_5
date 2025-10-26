@@ -33,16 +33,14 @@
             // 
             // employeesButton
             // 
-            employeesButton.BackColor = Color.LightGray;
-            employeesButton.FlatAppearance.BorderColor = Color.LightGray;
-            employeesButton.FlatAppearance.BorderSize = 0;
-            employeesButton.FlatStyle = FlatStyle.Flat;
-            employeesButton.Location = new Point(12, 12);
+            employeesButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            employeesButton.Location = new Point(16, 16);
+            employeesButton.Margin = new Padding(10);
             employeesButton.Name = "employeesButton";
-            employeesButton.Size = new Size(776, 23);
+            employeesButton.Size = new Size(768, 25);
             employeesButton.TabIndex = 0;
-            employeesButton.Text = "Управление сотрудниками сервиса";
-            employeesButton.UseVisualStyleBackColor = false;
+            employeesButton.Text = "Управление сотрудниками";
+            employeesButton.UseVisualStyleBackColor = true;
             employeesButton.Click += OnShowEmployeesFormButtonClick;
             // 
             // MainForm

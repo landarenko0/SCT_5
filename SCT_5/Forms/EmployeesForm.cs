@@ -19,7 +19,12 @@ namespace SCT_5.Forms
         private async Task SetEmployeesInfoToGrid()
         {
             List<Employee> employees = await _employeesService.GetAllEmployees();
-            foreach (Employee employee in employees) employeesGrid.Rows.Add(employee.Id, employee.FirstName, employee.LastName, employee.Salary);
+            List<DataGridViewRow> rows = [];
+
+            foreach (Employee employee in employees)
+            {
+                employeesGrid.Invoke(() => employeesGrid.Rows.Add(employee.Id, employee.FirstName, employee.LastName, employee.Salary));
+            }
         }
     }
 }

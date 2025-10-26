@@ -29,69 +29,157 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            GroupBox groupBox1;
+            TableLayoutPanel tableLayoutPanel1;
+            deleteEmployeeButton = new Button();
+            createEmployeeButton = new Button();
+            updateEmployeeButton = new Button();
             employeesGrid = new DataGridView();
-            employeeBindingSource = new BindingSource(components);
             id = new DataGridViewTextBoxColumn();
             firstName = new DataGridViewTextBoxColumn();
             lastName = new DataGridViewTextBoxColumn();
             salary = new DataGridViewTextBoxColumn();
+            employeeBindingSource = new BindingSource(components);
+            groupBox1 = new GroupBox();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            groupBox1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)employeesGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).BeginInit();
             SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(tableLayoutPanel1);
+            groupBox1.Location = new Point(16, 16);
+            groupBox1.Margin = new Padding(8);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(8);
+            groupBox1.Size = new Size(769, 80);
+            groupBox1.TabIndex = 2;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Редактирование";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.Controls.Add(deleteEmployeeButton, 2, 0);
+            tableLayoutPanel1.Controls.Add(createEmployeeButton, 0, 0);
+            tableLayoutPanel1.Controls.Add(updateEmployeeButton, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(8, 24);
+            tableLayoutPanel1.Margin = new Padding(8);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(753, 48);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // deleteEmployeeButton
+            // 
+            deleteEmployeeButton.AutoSize = true;
+            deleteEmployeeButton.Dock = DockStyle.Fill;
+            deleteEmployeeButton.Location = new Point(510, 8);
+            deleteEmployeeButton.Margin = new Padding(8);
+            deleteEmployeeButton.MaximumSize = new Size(0, 30);
+            deleteEmployeeButton.Name = "deleteEmployeeButton";
+            deleteEmployeeButton.Size = new Size(235, 30);
+            deleteEmployeeButton.TabIndex = 3;
+            deleteEmployeeButton.Text = "Удалить сотрудника";
+            deleteEmployeeButton.UseVisualStyleBackColor = true;
+            // 
+            // createEmployeeButton
+            // 
+            createEmployeeButton.AutoSize = true;
+            createEmployeeButton.Dock = DockStyle.Fill;
+            createEmployeeButton.Location = new Point(8, 8);
+            createEmployeeButton.Margin = new Padding(8);
+            createEmployeeButton.MaximumSize = new Size(0, 30);
+            createEmployeeButton.Name = "createEmployeeButton";
+            createEmployeeButton.Size = new Size(235, 30);
+            createEmployeeButton.TabIndex = 1;
+            createEmployeeButton.Text = "Добавить нового сотрудника";
+            createEmployeeButton.UseVisualStyleBackColor = true;
+            // 
+            // updateEmployeeButton
+            // 
+            updateEmployeeButton.AutoSize = true;
+            updateEmployeeButton.Dock = DockStyle.Fill;
+            updateEmployeeButton.Location = new Point(259, 8);
+            updateEmployeeButton.Margin = new Padding(8);
+            updateEmployeeButton.MaximumSize = new Size(0, 30);
+            updateEmployeeButton.Name = "updateEmployeeButton";
+            updateEmployeeButton.Size = new Size(235, 30);
+            updateEmployeeButton.TabIndex = 2;
+            updateEmployeeButton.Text = "Редактировать сотрудника";
+            updateEmployeeButton.UseVisualStyleBackColor = true;
             // 
             // employeesGrid
             // 
             employeesGrid.AllowUserToAddRows = false;
             employeesGrid.AllowUserToDeleteRows = false;
+            employeesGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            employeesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             employeesGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             employeesGrid.Columns.AddRange(new DataGridViewColumn[] { id, firstName, lastName, salary });
-            employeesGrid.Location = new Point(12, 12);
+            employeesGrid.Location = new Point(0, 112);
+            employeesGrid.Margin = new Padding(8);
             employeesGrid.Name = "employeesGrid";
             employeesGrid.ReadOnly = true;
-            employeesGrid.Size = new Size(776, 426);
+            employeesGrid.Size = new Size(800, 338);
             employeesGrid.TabIndex = 0;
-            // 
-            // employeeBindingSource
-            // 
-            employeeBindingSource.DataSource = typeof(Core.Models.Employee);
             // 
             // id
             // 
-            id.Frozen = true;
+            id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             id.HeaderText = "ID";
             id.Name = "id";
             id.ReadOnly = true;
-            id.Width = 50;
             // 
             // firstName
             // 
-            firstName.Frozen = true;
+            firstName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             firstName.HeaderText = "Имя";
             firstName.Name = "firstName";
             firstName.ReadOnly = true;
             // 
             // lastName
             // 
-            lastName.Frozen = true;
+            lastName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             lastName.HeaderText = "Фамилия";
             lastName.Name = "lastName";
             lastName.ReadOnly = true;
             // 
             // salary
             // 
-            salary.Frozen = true;
+            salary.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             salary.HeaderText = "Зарплата";
             salary.Name = "salary";
             salary.ReadOnly = true;
+            // 
+            // employeeBindingSource
+            // 
+            employeeBindingSource.DataSource = typeof(Core.Models.Employee);
             // 
             // EmployeesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(groupBox1);
             Controls.Add(employeesGrid);
             Name = "EmployeesForm";
             Text = "Управление сотрудниками сервиса";
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)employeesGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).EndInit();
             ResumeLayout(false);
@@ -100,10 +188,14 @@
         #endregion
 
         private DataGridView employeesGrid;
+        private BindingSource employeeBindingSource;
+        private Button createEmployeeButton;
+        private Button deleteEmployeeButton;
+        private Button updateEmployeeButton;
+        private TableLayoutPanel tableLayoutPanel1;
         private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn firstName;
         private DataGridViewTextBoxColumn lastName;
         private DataGridViewTextBoxColumn salary;
-        private BindingSource employeeBindingSource;
     }
 }
