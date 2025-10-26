@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             GroupBox groupBox1;
             TableLayoutPanel tableLayoutPanel1;
             deleteEmployeeButton = new Button();
@@ -39,13 +38,11 @@
             firstName = new DataGridViewTextBoxColumn();
             lastName = new DataGridViewTextBoxColumn();
             salary = new DataGridViewTextBoxColumn();
-            employeeBindingSource = new BindingSource(components);
             groupBox1 = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)employeesGrid).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)employeeBindingSource).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -93,6 +90,7 @@
             deleteEmployeeButton.TabIndex = 3;
             deleteEmployeeButton.Text = "Удалить сотрудника";
             deleteEmployeeButton.UseVisualStyleBackColor = true;
+            deleteEmployeeButton.Click += OnDeleteEmployeeButtonClick;
             // 
             // createEmployeeButton
             // 
@@ -130,10 +128,12 @@
             employeesGrid.Columns.AddRange(new DataGridViewColumn[] { id, firstName, lastName, salary });
             employeesGrid.Location = new Point(0, 112);
             employeesGrid.Margin = new Padding(8);
+            employeesGrid.MultiSelect = false;
             employeesGrid.Name = "employeesGrid";
             employeesGrid.ReadOnly = true;
             employeesGrid.Size = new Size(800, 338);
             employeesGrid.TabIndex = 0;
+            employeesGrid.CellClick += OnCellClick;
             // 
             // id
             // 
@@ -163,10 +163,6 @@
             salary.Name = "salary";
             salary.ReadOnly = true;
             // 
-            // employeeBindingSource
-            // 
-            employeeBindingSource.DataSource = typeof(Core.Models.Employee);
-            // 
             // EmployeesForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -181,14 +177,12 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)employeesGrid).EndInit();
-            ((System.ComponentModel.ISupportInitialize)employeeBindingSource).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView employeesGrid;
-        private BindingSource employeeBindingSource;
         private Button createEmployeeButton;
         private Button deleteEmployeeButton;
         private Button updateEmployeeButton;
