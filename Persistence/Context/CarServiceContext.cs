@@ -7,19 +7,8 @@ public partial class CarServiceContext(DbContextOptions<CarServiceContext> optio
 {
     internal virtual DbSet<EmployeeDto> Employees { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql("Host=192.168.250.133;Port=5432;Database=sct_2025;Username=sct_2025_g5;Password=SCT&2025%5");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .HasPostgresEnum("fastfood_3", "order_status", ["new", "preparing", "ready", "completed", "cancelled"])
-            .HasPostgresEnum("fastfood_3", "payment_method", ["cash", "card", "online"])
-            .HasPostgresEnum("fastfood_3", "payment_status", ["pending", "completed", "failed", "refunded"])
-            .HasPostgresEnum("hospital_2", "bed_status_t", ["free", "occupied", "maintenance"])
-            .HasPostgresEnum("hospital_2", "discharge_status_t", ["alive", "dead", "transferred", "left_against_medical_advice", "unknown"])
-            .HasPostgresEnum("hospital_2", "gender_t", ["male", "female"])
-            .HasPostgresExtension("productstore_1", "pgcrypto");
-
         modelBuilder.Entity<EmployeeDto>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("employees_pkey");

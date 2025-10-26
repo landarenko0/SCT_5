@@ -1,4 +1,4 @@
-﻿namespace SCT_5
+﻿namespace SCT_5.Forms
 {
     partial class MainForm
     {
@@ -43,6 +43,7 @@
             employeesButton.TabIndex = 0;
             employeesButton.Text = "Управление сотрудниками сервиса";
             employeesButton.UseVisualStyleBackColor = false;
+            employeesButton.Click += OnShowEmployeesFormButtonClick;
             // 
             // MainForm
             // 
