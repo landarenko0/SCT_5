@@ -15,9 +15,9 @@ namespace SCT_5.Forms
         private void OnShowEmployeesFormButtonClick(object sender, EventArgs e)
         {
             EmployeesForm employeesForm = _employeesFormFactory.CreateForm();
-            employeesForm.FormClosed += (_, _) => { Show(); };
-            Hide();
+            employeesForm.FormClosed += (_, _) => { employeesButton.Enabled = true; };
             employeesForm.Show();
+            employeesButton.Enabled = false;
         }
     }
 }
