@@ -1,5 +1,4 @@
-using Application.Abstractions;
-using Application.Services;
+using Application.ViewModels;
 using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,13 +25,14 @@ namespace SCT_5
             builder.ConfigureServices((context, services) =>
             {
                 string connectionString = context.Configuration.GetConnectionString("SCT_2025") ?? throw new Exception("Cannot get connection string");
-                services.AddDbContext<CarServiceContext>(options => options.UseNpgsql(connectionString));
+                services.AddDbContextFactory<CarServiceContext>(options => options.UseNpgsql(connectionString));
 
                 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 
-                services.AddScoped<IEmployeesService, EmployeesService>();
+                services.AddScoped<EmployeesViewModel>();
 
                 services.AddScoped<EmployeesFormFactory>();
+                services.AddScoped<EmployeeFormFactory>();
 
                 services.AddScoped<MainForm>();
             });

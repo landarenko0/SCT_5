@@ -6,8 +6,6 @@ namespace Application.Abstractions
     {
         public Task<List<Employee>> GetAllEmployees();
 
-        public Task<Employee> GetEmployeeById(int employeeId);
-
         public Task CreateEmployee(Employee employee);
 
         public Task UpdateEmployee(Employee employee);

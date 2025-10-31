@@ -104,6 +104,7 @@
             createEmployeeButton.TabIndex = 1;
             createEmployeeButton.Text = "Добавить нового сотрудника";
             createEmployeeButton.UseVisualStyleBackColor = true;
+            createEmployeeButton.Click += OnCreateEmployeeButtonClick;
             // 
             // updateEmployeeButton
             // 
@@ -117,6 +118,7 @@
             updateEmployeeButton.TabIndex = 2;
             updateEmployeeButton.Text = "Редактировать сотрудника";
             updateEmployeeButton.UseVisualStyleBackColor = true;
+            updateEmployeeButton.Click += OnEditEmployeeButtonClick;
             // 
             // employeesGrid
             // 
@@ -133,7 +135,6 @@
             employeesGrid.ReadOnly = true;
             employeesGrid.Size = new Size(800, 338);
             employeesGrid.TabIndex = 0;
-            employeesGrid.CellClick += OnCellClick;
             // 
             // id
             // 
@@ -141,6 +142,7 @@
             id.HeaderText = "ID";
             id.Name = "id";
             id.ReadOnly = true;
+            id.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // firstName
             // 
@@ -148,6 +150,7 @@
             firstName.HeaderText = "Имя";
             firstName.Name = "firstName";
             firstName.ReadOnly = true;
+            firstName.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // lastName
             // 
@@ -155,6 +158,7 @@
             lastName.HeaderText = "Фамилия";
             lastName.Name = "lastName";
             lastName.ReadOnly = true;
+            lastName.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // salary
             // 
@@ -162,6 +166,7 @@
             salary.HeaderText = "Зарплата";
             salary.Name = "salary";
             salary.ReadOnly = true;
+            salary.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // EmployeesForm
             // 

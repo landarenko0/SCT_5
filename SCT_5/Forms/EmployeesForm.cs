@@ -1,45 +1,60 @@
-﻿using Application.Abstractions;
+﻿using Application.ViewModels;
 using Core.Models;
+using SCT_5.Factories;
 
 namespace SCT_5.Forms
 {
     public partial class EmployeesForm : Form
     {
-        private readonly IEmployeesService _employeesService;
+        private readonly EmployeesViewModel _employeesViewModel;
 
-        private List<Employee> _employees = [];
+        private readonly EmployeeFormFactory _employeeFormFactory;
 
-        public EmployeesForm(IEmployeesService employeesService)
+        public EmployeesForm(EmployeesViewModel employeesViewModel, EmployeeFormFactory employeeFormFactory)
         {
             InitializeComponent();
 
             updateEmployeeButton.Enabled = false;
             deleteEmployeeButton.Enabled = false;
 
-            _employeesService = employeesService;
+            _employeesViewModel = employeesViewModel;
+            _employeeFormFactory = employeeFormFactory;
 
-            Task.Run(SetEmployeesInfoToGrid);
+            _employeesViewModel.OnError += ShowErrorDialog;
+            _employeesViewModel.OnEmployeesChanged += UpdateEmployeesTable;
+            _employeesViewModel.UpdateButtonsState += UpdateButtonsState;
+            _employeesViewModel.ClearEmployeesTable += ClearEmployeesTable;
+
+            FormClosing += (sender, e) =>
+            {
+                _employeesViewModel.OnError -= ShowErrorDialog;
+                _employeesViewModel.OnEmployeesChanged -= UpdateEmployeesTable;
+                _employeesViewModel.UpdateButtonsState -= UpdateButtonsState;
+                _employeesViewModel.ClearEmployeesTable -= ClearEmployeesTable;
+            };
         }
 
-        private async Task SetEmployeesInfoToGrid()
-        {
-            _employees = await _employeesService.GetAllEmployees();
+        private void ShowErrorDialog(string description) => MessageBox.Show(description, "Ошибка", MessageBoxButtons.OK);
 
-            foreach (Employee employee in _employees)
+        private void UpdateEmployeesTable(List<Employee> employees)
+        {
+            foreach (Employee employee in employees)
             {
-                employeesGrid.Invoke(() => employeesGrid.Rows.Add(employee.Id, employee.FirstName, employee.LastName, employee.Salary));
+                employeesGrid.Rows.Add(employee.Id, employee.FirstName, employee.LastName, employee.Salary);
             }
         }
 
-        private void OnCellClick(object sender, DataGridViewCellEventArgs e)
+        private void UpdateButtonsState(bool isActive)
         {
-            updateEmployeeButton.Enabled = true;
-            deleteEmployeeButton.Enabled = true;
+            updateEmployeeButton.Enabled = isActive;
+            deleteEmployeeButton.Enabled = isActive;
         }
+
+        private void ClearEmployeesTable() => employeesGrid.Rows.Clear();
 
         private void OnDeleteEmployeeButtonClick(object sender, EventArgs e)
         {
-            Employee selectedEmployee = _employees[employeesGrid.CurrentRow.Index];
+            Employee selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
 
             DialogResult result = MessageBox.Show(
                 $"Вы действительно хотите удалить сотрудника {selectedEmployee.LastName} {selectedEmployee.FirstName}?",
@@ -47,18 +62,20 @@ namespace SCT_5.Forms
                 MessageBoxButtons.YesNoCancel
             );
 
-            if (result == DialogResult.Yes)
-            {
-                employeesGrid.Rows.Clear();
-
-                Task.Run(async () =>
-                {
-                    await DeleteEmployee(selectedEmployee.Id);
-                    await SetEmployeesInfoToGrid();
-                });
-            }
+            if (result == DialogResult.Yes) _employeesViewModel.OnDeleteEmployeeConfirmed(employeesGrid.CurrentRow.Index);
         }
 
-        private Task DeleteEmployee(int employeeId) => _employeesService.DeleteEmployee(employeeId);
+        private void OnCreateEmployeeButtonClick(object sender, EventArgs e)
+        {
+            EmployeeForm employeeForm = _employeeFormFactory.CreateForm(_employeesViewModel.OnEmployeeFormSaveButtonClicked);
+            employeeForm.ShowDialog();
+        }
+
+        private void OnEditEmployeeButtonClick(object sender, EventArgs e)
+        {
+            Employee selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
+            EmployeeForm employeeForm = _employeeFormFactory.CreateForm(_employeesViewModel.OnEmployeeFormSaveButtonClicked, selectedEmployee);
+            employeeForm.ShowDialog();
+        }
     }
 }
