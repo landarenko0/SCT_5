@@ -30,6 +30,7 @@ namespace SCT_5
                 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 
                 services.AddScoped<EmployeesViewModel>();
+                services.AddScoped<EmployeeViewModel>();
 
                 services.AddScoped<EmployeesFormFactory>();
                 services.AddScoped<EmployeeFormFactory>();

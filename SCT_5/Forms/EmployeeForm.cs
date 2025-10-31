@@ -1,28 +1,28 @@
-﻿using Application.Abstractions;
-using Core.Exceptions;
+﻿using Application.ViewModels;
 using Core.Models;
 
 namespace SCT_5.Forms
 {
     public partial class EmployeeForm : Form
     {
-        private readonly IEmployeesService _employeesService;
+        private readonly EmployeeViewModel _employeeViewModel;
 
         private event Action OnSaveButtonClick;
 
-        private readonly Employee? _employee = null;
-
-        public EmployeeForm(IEmployeesService employeesService, Action onSaveButtonClick)
+        public EmployeeForm(EmployeeViewModel employeeViewModel, Action onSaveButtonClick)
         {
             InitializeComponent();
 
             Text = "Создание сотрудника";
 
-            _employeesService = employeesService;
+            _employeeViewModel = employeeViewModel;
             OnSaveButtonClick += onSaveButtonClick;
+
+            RegisterEvents();
+            FormClosing += (_, _) => UnregisterEvents();
         }
 
-        public EmployeeForm(IEmployeesService employeesService, Employee employee, Action onSaveButtonClick)
+        public EmployeeForm(EmployeeViewModel employeeViewModel, Employee employee, Action onSaveButtonClick)
         {
             InitializeComponent();
 
@@ -32,10 +32,37 @@ namespace SCT_5.Forms
             lastNameTextBox.Text = employee.LastName;
             salaryTextBox.Text = employee.Salary.ToString();
 
-            _employeesService = employeesService;
-            _employee = employee;
+            _employeeViewModel = employeeViewModel;
+            _employeeViewModel.Employee = employee;
             OnSaveButtonClick += onSaveButtonClick;
+
+            RegisterEvents();
+            FormClosing += (_, _) => UnregisterEvents();
         }
+
+        private void RegisterEvents()
+        {
+            _employeeViewModel.OnError += ShowErrorDialog;
+            _employeeViewModel.OnCloseForm += CloseForm;
+            _employeeViewModel.UpdateButtonState += UpdateButtonState;
+        }
+
+        private void UnregisterEvents()
+        {
+            _employeeViewModel.OnError -= ShowErrorDialog;
+            _employeeViewModel.OnCloseForm -= CloseForm;
+            _employeeViewModel.UpdateButtonState -= UpdateButtonState;
+        }
+
+        private void ShowErrorDialog(string description) => MessageBox.Show(description, "Ошибка", MessageBoxButtons.OK);
+
+        private void CloseForm()
+        {
+            OnSaveButtonClick();
+            Close();
+        }
+
+        private void UpdateButtonState(bool isActive) => saveButton.Enabled = isActive;
 
         private void OnSaveEmployeeButtonClick(object sender, EventArgs e)
         {
@@ -43,76 +70,7 @@ namespace SCT_5.Forms
             string lastName = lastNameTextBox.Text;
             string salary = salaryTextBox.Text;
 
-            try
-            {
-                ValidateInput(firstName, lastName, salary);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка ввода", MessageBoxButtons.OK);
-                return;
-            }
-
-            Employee employee = new()
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Salary = int.Parse(salary)
-            };
-
-            if (_employee is null) Task.Run(async () => await SaveEmployee(employee, _employeesService.CreateEmployee));
-            else
-            {
-                employee.Id = _employee.Id;
-
-                Task.Run(async () => await SaveEmployee(employee, _employeesService.UpdateEmployee));
-            }
-        }
-
-        private static void ValidateInput(string firstName, string lastName, string salary)
-        {
-            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrEmpty(firstName))
-            {
-                throw new Exception("Введите имя сотрудника");
-            }
-            else if (string.IsNullOrWhiteSpace(lastName) || string.IsNullOrEmpty(lastName))
-            {
-                throw new Exception("Введите фамилию сотрудника");
-            }
-            else if (string.IsNullOrWhiteSpace(salary) || string.IsNullOrEmpty(salary))
-            {
-                throw new Exception("Введите зарплату сотрудника");
-            }
-            else if (!int.TryParse(salary, out int result) || result <= 0)
-            {
-                throw new Exception("Некорректная зарплата");
-            }
-        }
-
-        private async Task SaveEmployee(Employee employee, Func<Employee, Task> saveAction)
-        {
-            saveButton.Invoke(() => { saveButton.Enabled = false; });
-            saveButton.Invoke(() => { saveButton.Text = "Подождите..."; });
-            
-            try
-            {
-                await saveAction(employee);
-
-                OnSaveButtonClick();
-                Invoke(Close);
-                return;
-            }
-            catch (AlreadyExistsException)
-            {
-                Invoke(() => { MessageBox.Show("Сотрудник с заданными именем и фамилией уже существует", "Ошибка"); });
-            }
-            catch
-            {
-                Invoke(() => { MessageBox.Show("Произошла ошибка во время выполнения. Попробуйте позже", "Ошибка"); });
-            }
-
-            saveButton.Invoke(() => { saveButton.Enabled = true; });
-            saveButton.Invoke(() => { saveButton.Text = "Сохранить"; });
+            _employeeViewModel.OnSaveButtonClick(firstName, lastName, salary);
         }
     }
 }

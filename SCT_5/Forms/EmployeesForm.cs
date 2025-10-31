@@ -25,7 +25,7 @@ namespace SCT_5.Forms
             _employeesViewModel.UpdateButtonsState += UpdateButtonsState;
             _employeesViewModel.ClearEmployeesTable += ClearEmployeesTable;
 
-            FormClosing += (sender, e) =>
+            FormClosing += (_, _) =>
             {
                 _employeesViewModel.OnError -= ShowErrorDialog;
                 _employeesViewModel.OnEmployeesChanged -= UpdateEmployeesTable;
@@ -54,7 +54,8 @@ namespace SCT_5.Forms
 
         private void OnDeleteEmployeeButtonClick(object sender, EventArgs e)
         {
-            Employee selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
+            Employee? selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
+            if (selectedEmployee == null) return;
 
             DialogResult result = MessageBox.Show(
                 $"Вы действительно хотите удалить сотрудника {selectedEmployee.LastName} {selectedEmployee.FirstName}?",
@@ -73,7 +74,9 @@ namespace SCT_5.Forms
 
         private void OnEditEmployeeButtonClick(object sender, EventArgs e)
         {
-            Employee selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
+            Employee? selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
+            if (selectedEmployee == null) return;
+
             EmployeeForm employeeForm = _employeeFormFactory.CreateForm(_employeesViewModel.OnEmployeeFormSaveButtonClicked, selectedEmployee);
             employeeForm.ShowDialog();
         }

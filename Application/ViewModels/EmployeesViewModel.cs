@@ -77,8 +77,23 @@ namespace Application.ViewModels
             }
         }
 
-        public void OnEmployeeFormSaveButtonClicked() => Task.Run(UpdateEmployeesList);
+        public void OnEmployeeFormSaveButtonClicked()
+        {
+            ClearEmployeesTable?.Invoke();
+            UpdateButtonsState?.Invoke(false);
 
-        public Employee GetSelectedEmployee(int selectedIndex) => _employees[selectedIndex];
+            Task.Run(async () =>
+            {
+                await UpdateEmployeesList();
+
+                OnEmployeesChanged?.Invoke(_employees);
+                UpdateButtonsState?.Invoke(_employees.Count > 0);
+            });
+        }
+
+        public Employee? GetSelectedEmployee(int selectedIndex)
+        {
+            return selectedIndex >= 0 && selectedIndex < _employees.Count ? _employees[selectedIndex] : null;
+        }
     }
 }
