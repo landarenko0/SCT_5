@@ -14,6 +14,8 @@ namespace Application.ViewModels
 
         public Employee? Employee { get; set; }
 
+        private const string AlreadyExistsPgExceptionCode = "23505";
+
         public void OnSaveButtonClick(string firstName, string lastName, string salary)
         {
             if (!ValidateInput(firstName, lastName, salary)) return;
@@ -75,7 +77,17 @@ namespace Application.ViewModels
             catch (Exception e)
             {
                 logger.LogError(e, "An error occured while SaveEmployee() was executing");
-                OnError?.Invoke("Произошла ошибка");
+
+                if (e.Message.Contains(AlreadyExistsPgExceptionCode))
+                {
+                    OnError?.Invoke("Сотрудник с данными именем и фамилией уже существует");
+                }
+                else if (e.InnerException is not null && e.InnerException.Message.Contains(AlreadyExistsPgExceptionCode))
+                {
+                    OnError?.Invoke("Сотрудник с данными именем и фамилией уже существует");
+                }
+                else OnError?.Invoke("Произошла ошибка");
+
                 return false;
             }
         }
@@ -90,7 +102,17 @@ namespace Application.ViewModels
             catch (Exception e)
             {
                 logger.LogError(e, "An error occured while UpdateEmployee() was executing");
-                OnError?.Invoke("Произошла ошибка");
+
+                if (e.Message.Contains(AlreadyExistsPgExceptionCode))
+                {
+                    OnError?.Invoke("Сотрудник с данными именем и фамилией уже существует");
+                }
+                else if (e.InnerException is not null && e.InnerException.Message.Contains(AlreadyExistsPgExceptionCode))
+                {
+                    OnError?.Invoke("Сотрудник с данными именем и фамилией уже существует");
+                }
+                else OnError?.Invoke("Произошла ошибка");
+
                 return false;
             }
         }
