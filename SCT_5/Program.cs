@@ -27,15 +27,15 @@ namespace SCT_5
                 string connectionString = context.Configuration.GetConnectionString("SCT_2025") ?? throw new Exception("Cannot get connection string");
                 services.AddDbContextFactory<CarServiceContext>(options => options.UseNpgsql(connectionString));
 
-                services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+                services.AddTransient<IEmployeesRepository, EmployeesRepository>();
 
-                services.AddScoped<EmployeesViewModel>();
-                services.AddScoped<EmployeeViewModel>();
+                services.AddTransient<EmployeesViewModel>();
+                services.AddTransient<EmployeeViewModel>();
 
-                services.AddScoped<EmployeesFormFactory>();
-                services.AddScoped<EmployeeFormFactory>();
+                services.AddTransient<EmployeesFormFactory>();
+                services.AddTransient<EmployeeFormFactory>();
 
-                services.AddScoped<MainForm>();
+                services.AddTransient<MainForm>();
             });
 
             IHost host = builder.Build();
