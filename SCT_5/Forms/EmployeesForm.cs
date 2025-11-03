@@ -34,26 +34,35 @@ namespace SCT_5.Forms
             };
         }
 
-        private void ShowErrorDialog(string description) => MessageBox.Show(description, "Ошибка", MessageBoxButtons.OK);
+        private void ShowErrorDialog(string description) => Invoke(() => { MessageBox.Show(description, "Ошибка", MessageBoxButtons.OK); });
 
         private void UpdateEmployeesTable(List<Employee> employees)
         {
-            foreach (Employee employee in employees)
+            employeesGrid.Invoke(() =>
             {
-                employeesGrid.Rows.Add(employee.Id, employee.FirstName, employee.LastName, employee.Salary);
-            }
+                try
+                {
+                    foreach (Employee employee in employees)
+                    {
+                        employeesGrid.Rows.Add(employee.Id, employee.FirstName, employee.LastName, employee.Salary);
+                    }
+                }
+                catch { }
+            });
         }
 
         private void UpdateButtonsState(bool isActive)
         {
-            updateEmployeeButton.Enabled = isActive;
-            deleteEmployeeButton.Enabled = isActive;
+            updateEmployeeButton.Invoke(() => { updateEmployeeButton.Enabled = isActive; });
+            deleteEmployeeButton.Invoke(() => { deleteEmployeeButton.Enabled = isActive; });
         }
 
-        private void ClearEmployeesTable() => employeesGrid.Rows.Clear();
+        private void ClearEmployeesTable() => employeesGrid.Invoke(employeesGrid.Rows.Clear);
 
         private void OnDeleteEmployeeButtonClick(object sender, EventArgs e)
         {
+            if (employeesGrid.CurrentRow is null) return;
+
             Employee? selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
             if (selectedEmployee == null) return;
 
@@ -74,6 +83,8 @@ namespace SCT_5.Forms
 
         private void OnEditEmployeeButtonClick(object sender, EventArgs e)
         {
+            if (employeesGrid.CurrentRow is null) return;
+
             Employee? selectedEmployee = _employeesViewModel.GetSelectedEmployee(employeesGrid.CurrentRow.Index);
             if (selectedEmployee == null) return;
 

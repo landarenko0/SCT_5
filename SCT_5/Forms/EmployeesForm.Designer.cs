@@ -125,7 +125,6 @@
             employeesGrid.AllowUserToAddRows = false;
             employeesGrid.AllowUserToDeleteRows = false;
             employeesGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            employeesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             employeesGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             employeesGrid.Columns.AddRange(new DataGridViewColumn[] { id, firstName, lastName, salary });
             employeesGrid.Location = new Point(0, 112);
@@ -133,7 +132,7 @@
             employeesGrid.MultiSelect = false;
             employeesGrid.Name = "employeesGrid";
             employeesGrid.ReadOnly = true;
-            employeesGrid.Size = new Size(800, 338);
+            employeesGrid.Size = new Size(800, 337);
             employeesGrid.TabIndex = 0;
             // 
             // id

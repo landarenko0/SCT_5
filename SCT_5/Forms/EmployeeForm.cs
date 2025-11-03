@@ -54,15 +54,18 @@ namespace SCT_5.Forms
             _employeeViewModel.UpdateButtonState -= UpdateButtonState;
         }
 
-        private void ShowErrorDialog(string description) => MessageBox.Show(description, "Ошибка", MessageBoxButtons.OK);
+        private void ShowErrorDialog(string description) => Invoke(() => { MessageBox.Show(description, "Ошибка", MessageBoxButtons.OK); });
 
         private void CloseForm()
         {
-            OnSaveButtonClick();
-            Close();
+            Invoke(() =>
+            {
+                OnSaveButtonClick();
+                Close();
+            });
         }
 
-        private void UpdateButtonState(bool isActive) => saveButton.Enabled = isActive;
+        private void UpdateButtonState(bool isActive) => saveButton.Invoke(() => { saveButton.Enabled = isActive; });
 
         private void OnSaveEmployeeButtonClick(object sender, EventArgs e)
         {
@@ -71,6 +74,20 @@ namespace SCT_5.Forms
             string salary = salaryTextBox.Text;
 
             _employeeViewModel.OnSaveButtonClick(firstName, lastName, salary);
+        }
+
+        private void OnSalaryConstraintGoodButtonClick(object sender, EventArgs e)
+        {
+            firstNameTextBox.Text = EmployeeViewModel.RandomFirstName;
+            lastNameTextBox.Text = EmployeeViewModel.RandomLastName;
+            salaryTextBox.Text = EmployeeViewModel.RandomSalary.ToString();
+        }
+
+        private void OnSalaryConstraintBadButtonClick(object sender, EventArgs e)
+        {
+            firstNameTextBox.Text = EmployeeViewModel.RandomFirstName;
+            lastNameTextBox.Text = EmployeeViewModel.RandomLastName;
+            salaryTextBox.Text = "-100";
         }
     }
 }

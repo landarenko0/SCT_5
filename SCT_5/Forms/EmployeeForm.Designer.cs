@@ -31,6 +31,9 @@
             Label label1;
             Label label2;
             Label label3;
+            GroupBox groupBox1;
+            salaryConstraintGoodButton = new Button();
+            salaryConstraintBadButton = new Button();
             firstNameTextBox = new TextBox();
             lastNameTextBox = new TextBox();
             salaryTextBox = new TextBox();
@@ -38,6 +41,8 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            groupBox1 = new GroupBox();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -69,6 +74,37 @@
             label3.Size = new Size(58, 15);
             label3.TabIndex = 4;
             label3.Text = "Зарплата";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(salaryConstraintGoodButton);
+            groupBox1.Controls.Add(salaryConstraintBadButton);
+            groupBox1.Location = new Point(395, 74);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(231, 100);
+            groupBox1.TabIndex = 9;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Тестирование ограничения зарплаты";
+            // 
+            // salaryConstraintGoodButton
+            // 
+            salaryConstraintGoodButton.Location = new Point(6, 22);
+            salaryConstraintGoodButton.Name = "salaryConstraintGoodButton";
+            salaryConstraintGoodButton.Size = new Size(219, 23);
+            salaryConstraintGoodButton.TabIndex = 7;
+            salaryConstraintGoodButton.Text = "Хороший пример";
+            salaryConstraintGoodButton.UseVisualStyleBackColor = true;
+            salaryConstraintGoodButton.Click += OnSalaryConstraintGoodButtonClick;
+            // 
+            // salaryConstraintBadButton
+            // 
+            salaryConstraintBadButton.Location = new Point(6, 69);
+            salaryConstraintBadButton.Name = "salaryConstraintBadButton";
+            salaryConstraintBadButton.Size = new Size(219, 23);
+            salaryConstraintBadButton.TabIndex = 8;
+            salaryConstraintBadButton.Text = "Плохой пример";
+            salaryConstraintBadButton.UseVisualStyleBackColor = true;
+            salaryConstraintBadButton.Click += OnSalaryConstraintBadButtonClick;
             // 
             // firstNameTextBox
             // 
@@ -107,7 +143,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(389, 277);
+            ClientSize = new Size(649, 277);
+            Controls.Add(groupBox1);
             Controls.Add(saveButton);
             Controls.Add(salaryTextBox);
             Controls.Add(label3);
@@ -117,6 +154,7 @@
             Controls.Add(label1);
             Name = "EmployeeForm";
             Text = "EmployeeForm";
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -127,5 +165,7 @@
         private TextBox lastNameTextBox;
         private TextBox salaryTextBox;
         private Button saveButton;
+        private Button salaryConstraintGoodButton;
+        private Button salaryConstraintBadButton;
     }
 }
