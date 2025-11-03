@@ -1,12 +1,12 @@
 ﻿namespace Persistence.Models;
 
-public partial class EmployeeDto
+internal partial class EmployeeDto
 {
-    public int Id { get; set; }
+    internal int Id { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    internal string FirstName { get; set; } = null!;
 
-    public string LastName { get; set; } = null!;
+    internal string LastName { get; set; } = null!;
 
-    public int Salary { get; set; }
+    internal int Salary { get; set; }
 }
