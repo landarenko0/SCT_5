@@ -154,6 +154,7 @@
             Controls.Add(label1);
             Name = "EmployeeForm";
             Text = "EmployeeForm";
+            Load += EmployeeForm_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

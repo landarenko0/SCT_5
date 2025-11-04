@@ -134,6 +134,7 @@
             employeesGrid.ReadOnly = true;
             employeesGrid.Size = new Size(800, 337);
             employeesGrid.TabIndex = 0;
+            employeesGrid.CellContentClick += employeesGrid_CellContentClick;
             // 
             // id
             // 

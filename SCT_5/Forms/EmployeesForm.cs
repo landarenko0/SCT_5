@@ -91,5 +91,10 @@ namespace SCT_5.Forms
             EmployeeForm employeeForm = _employeeFormFactory.CreateForm(_employeesViewModel.OnEmployeeFormSaveButtonClicked, selectedEmployee);
             employeeForm.ShowDialog();
         }
+
+        private void employeesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
