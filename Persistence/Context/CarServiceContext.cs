@@ -7,6 +7,7 @@ public partial class CarServiceContext(DbContextOptions<CarServiceContext> optio
 {
     internal virtual DbSet<EmployeeDto> Employees { get; set; }
     internal virtual DbSet<CarPartDto> CarParts { get; set; }
+    internal virtual DbSet<ServiceDto> Services { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -41,8 +42,20 @@ public partial class CarServiceContext(DbContextOptions<CarServiceContext> optio
             entity.Property(e => e.Quantity).HasColumnName("quantity");
         });
 
+		modelBuilder.Entity<ServiceDto>(entity =>
+		{
+			entity.HasKey(e => e.Id).HasName("services_pkey");
 
-        OnModelCreatingPartial(modelBuilder);
+			entity.ToTable("services", "carservice_5");
+
+			entity.Property(e => e.Id).HasColumnName("id");
+			entity.Property(e => e.Title)
+				.HasMaxLength(100)
+				.HasColumnName("title");
+			entity.Property(e => e.Price).HasColumnName("price");
+		});
+
+		OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

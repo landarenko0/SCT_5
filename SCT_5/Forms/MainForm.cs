@@ -6,12 +6,14 @@ namespace SCT_5.Forms
     {
         private readonly EmployeesFormFactory _employeesFormFactory;
         private readonly CarPartsFormFactory _carPartsFormFactory;
+        private readonly ServicesFormFactory _servicesFormFactory;
 
-        public MainForm(EmployeesFormFactory employeesFormFactory, CarPartsFormFactory carPartsFormFactory)
+        public MainForm(EmployeesFormFactory employeesFormFactory, ServicesFormFactory servicesFormFactory, CarPartsFormFactory carPartsFormFactory)
         {
             InitializeComponent();
             _employeesFormFactory = employeesFormFactory;
-            _carPartsFormFactory = carPartsFormFactory;
+            _servicesFormFactory = servicesFormFactory;
+            _carPartsFormFactory = carPartsFormFactory
         }
 
         private void OnShowEmployeesFormButtonClick(object sender, EventArgs e)
@@ -29,10 +31,21 @@ namespace SCT_5.Forms
             carPartsForm.Show();
             carPartsButton.Enabled = false;
         }
+        
+        private void OnShowServicesFormButtonClick(object sender, EventArgs e)
+		{
+			ServicesForm servicesForm = _servicesFormFactory.CreateForm();
+			servicesForm.FormClosed += (_, _) => { servicesButton.Enabled = true; };
+			servicesForm.Show();
+			servicesButton.Enabled = false;
+		}
 
         private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
     }
+
+		
+	}
 }

@@ -1,4 +1,5 @@
 using Application.ViewModels;
+using Core.Models;
 using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,12 +29,17 @@ namespace SCT_5
                 services.AddDbContextFactory<CarServiceContext>(options => options.UseNpgsql(connectionString));
 
                 services.AddTransient<IEmployeesRepository, EmployeesRepository>();
+				services.AddTransient<IServicesRepository, ServicesRepository>();
 
-                services.AddTransient<EmployeesViewModel>();
+				services.AddTransient<EmployeesViewModel>();
+				services.AddTransient<ServicesViewModel>();
                 services.AddTransient<EmployeeViewModel>();
+                services.AddTransient<ServiceViewModel>();
 
                 services.AddTransient<EmployeesFormFactory>();
+                services.AddTransient<ServicesFormFactory>();
                 services.AddTransient<EmployeeFormFactory>();
+                services.AddTransient<ServiceFormFactory>();
 
 
                 services.AddTransient<ICarPartsRepository, CarPartsRepository>();
