@@ -185,9 +185,9 @@
             ResumeLayout(false);
         }
 
-        #endregion
+		#endregion
 
-        private DataGridView employeesGrid;
+		private DataGridView employeesGrid;
         private Button createEmployeeButton;
         private Button deleteEmployeeButton;
         private Button updateEmployeeButton;
