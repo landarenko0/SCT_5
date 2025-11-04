@@ -13,7 +13,7 @@ namespace SCT_5.Forms
             InitializeComponent();
             _employeesFormFactory = employeesFormFactory;
             _servicesFormFactory = servicesFormFactory;
-            _carPartsFormFactory = carPartsFormFactory
+            _carPartsFormFactory = carPartsFormFactory;
         }
 
         private void OnShowEmployeesFormButtonClick(object sender, EventArgs e)
@@ -47,5 +47,5 @@ namespace SCT_5.Forms
     }
 
 		
-	}
+	
 }

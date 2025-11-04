@@ -31,40 +31,42 @@
 			employeesButton = new Button();
 			servicesButton = new Button();
 			carPartsButton = new Button();
-
 			SuspendLayout();
 			// 
 			// employeesButton
 			// 
 			employeesButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			employeesButton.Font = new Font("Segoe UI", 14F);
 			employeesButton.Location = new Point(16, 16);
 			employeesButton.Margin = new Padding(10);
 			employeesButton.Name = "employeesButton";
-			employeesButton.Size = new Size(768, 25);
+			employeesButton.Size = new Size(768, 49);
 			employeesButton.TabIndex = 0;
 			employeesButton.Text = "Управление сотрудниками";
 			employeesButton.UseVisualStyleBackColor = true;
 			employeesButton.Click += OnShowEmployeesFormButtonClick;
 			// 
-			// button1
+			// servicesButton
 			// 
 			servicesButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			servicesButton.Location = new Point(16, 61);
+			servicesButton.Font = new Font("Segoe UI", 14F);
+			servicesButton.Location = new Point(16, 182);
 			servicesButton.Margin = new Padding(10);
 			servicesButton.Name = "servicesButton";
-			servicesButton.Size = new Size(768, 25);
+			servicesButton.Size = new Size(768, 49);
 			servicesButton.TabIndex = 1;
 			servicesButton.Text = "Управление услугами";
 			servicesButton.UseVisualStyleBackColor = true;
 			servicesButton.Click += OnShowServicesFormButtonClick;
 			// 
-			// carPartsButton 
+			// carPartsButton
 			// 
 			carPartsButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			carPartsButton.Location = new Point(16, 61);
+			carPartsButton.Font = new Font("Segoe UI", 14F);
+			carPartsButton.Location = new Point(16, 99);
 			carPartsButton.Margin = new Padding(10);
 			carPartsButton.Name = "carPartsButton";
-			carPartsButton.Size = new Size(768, 25);
+			carPartsButton.Size = new Size(768, 49);
 			carPartsButton.TabIndex = 1;
 			carPartsButton.Text = "Управление запчастями";
 			carPartsButton.UseVisualStyleBackColor = true;
