@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             employeesButton = new Button();
+            carPartsButton = new Button();
             SuspendLayout();
             // 
             // employeesButton
@@ -43,19 +44,34 @@
             employeesButton.UseVisualStyleBackColor = true;
             employeesButton.Click += OnShowEmployeesFormButtonClick;
             // 
+            // carPartsButton 
+            // 
+            carPartsButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            carPartsButton.Location = new Point(16, 61); 
+            carPartsButton.Margin = new Padding(10);
+            carPartsButton.Name = "carPartsButton";
+            carPartsButton.Size = new Size(768, 25);
+            carPartsButton.TabIndex = 1;
+            carPartsButton.Text = "Управление запчастями";
+            carPartsButton.UseVisualStyleBackColor = true;
+            carPartsButton.Click += OnShowCarPartsFormButtonClick;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(carPartsButton);
             Controls.Add(employeesButton);
             Name = "MainForm";
             Text = "Автосервис";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 
         #endregion
 
         private Button employeesButton;
+        private Button carPartsButton;
     }
 }

@@ -35,6 +35,16 @@ namespace SCT_5
                 services.AddTransient<EmployeesFormFactory>();
                 services.AddTransient<EmployeeFormFactory>();
 
+
+                services.AddTransient<ICarPartsRepository, CarPartsRepository>();
+
+                services.AddTransient<CarPartsViewModel>();
+                services.AddTransient<CarPartViewModel>();
+
+                services.AddTransient<CarPartFormFactory>();
+                services.AddTransient<CarPartsFormFactory>();
+
+
                 services.AddTransient<MainForm>();
             });
 

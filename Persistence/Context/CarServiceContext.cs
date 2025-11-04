@@ -6,6 +6,7 @@ namespace Persistence.Context;
 public partial class CarServiceContext(DbContextOptions<CarServiceContext> options) : DbContext(options)
 {
     internal virtual DbSet<EmployeeDto> Employees { get; set; }
+    internal virtual DbSet<CarPartDto> CarParts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,6 +27,20 @@ public partial class CarServiceContext(DbContextOptions<CarServiceContext> optio
                 .HasColumnName("last_name");
             entity.Property(e => e.Salary).HasColumnName("salary");
         });
+
+        modelBuilder.Entity<CarPartDto>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("car_parts_pkey");
+
+            entity.ToTable("car_parts", "carservice_5");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Title)
+                .HasMaxLength(100)
+                .HasColumnName("title");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

@@ -89,5 +89,10 @@ namespace SCT_5.Forms
             lastNameTextBox.Text = EmployeeViewModel.RandomLastName;
             salaryTextBox.Text = "-100";
         }
+
+        private void EmployeeForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
